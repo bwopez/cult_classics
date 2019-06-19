@@ -44,8 +44,11 @@ if __name__ == '__main__':
     print(my_movie['director'])
     print(my_movie['poster'])
     print(my_movie['plot'])
+    # TODO: need to parse this into an int to compare vvv
     print(my_movie['year'])
+    # TODO: need to find a float model field vvv
     print(my_movie['rating'])
 
+    # TODO: is there even a model field for lists? vvvv
     for genre in my_movie['genres']:
         print(genre)
