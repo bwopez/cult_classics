@@ -3,25 +3,7 @@ Script to get all movies from a web page
 """
 from bs4 import BeautifulSoup as bs
 import requests
-import wikipedia
-import re
-
-
-def get_year(title, lang='en'):
-    """
-
-    :param title:
-    :param lang:
-    :return:
-    """
-    wikipedia.set_lang(lang)
-    summary = wikipedia.WikipediaPage(title=title).summary
-    match = re.search('\d{4}', summary)
-    if match:
-        year = match.group(0)
-    else:
-        year = "unknown"
-    return year
+import csv
 
 
 def get_titles(webpage):
@@ -39,21 +21,18 @@ def get_titles(webpage):
 
     table = soup.find('table', {'class': 'wikitable'})
     titles = []
-    for italic in table.find_all('i'):
-        if italic.find('a'):
-            title = italic.find('a')['title']
-            language = 'en'
-            match = re.search('[a-z][a-z]:', title)
-            if match and match.group(0) == title[:len(match.group(0))]:
-                language, title = title.split(match.group(0)[-1])
-            year = get_year(title, language)
-
-            title = year + '||' + title
-            if '(' in title:
-                title = title.split('(')[0]
-
-            titles.append(title)
-            print(title)
+    for tr in table.find_all('tr')[1:]:
+        movie = []
+        movie_obj = dict()
+        for td in tr.find_all('td'):
+            movie.append(td.get_text().strip())
+        if '(' in movie[0]:
+            movie_obj['name'] = movie[0].split('(')[0]
+        else:
+            movie_obj['name'] = movie[0]
+        movie_obj['year'] = movie[1]
+        movie_obj['directors'] = movie[2]
+        titles.append(movie_obj)
 
     return titles
 
@@ -61,9 +40,15 @@ def get_titles(webpage):
 if __name__ == '__main__':
     print("Doing a trial run. Grabbing all titles from 'cult classics: C'")
     my_titles = get_titles('https://en.wikipedia.org/wiki/List_of_cult_films:_C')
-    # print("Titles have been loaded. Printing titles")
-    # print("========================================")
-    # print("========================================")
-    # print("========================================")
-    # for year_title in my_titles:
-    #     print(year_title)
+    print("Titles have been loaded. Printing titles")
+    print("========================================")
+    print("========================================")
+    print("========================================")
+    for title in my_titles:
+        if len(title['year']) == 4:
+            print(title['name'] + " || " + title['year'] + " || " + title['directors'])
+        else:
+            file = 'trash_can.csv'
+            f = open(file, 'w+')
+            f.write(title['name'] + " || " + title['year'] + " || " + title['directors'])
+            f.write('\n')
