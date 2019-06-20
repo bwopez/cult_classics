@@ -3,7 +3,6 @@ Script to get all movies from a web page
 """
 from bs4 import BeautifulSoup as bs
 import requests
-import csv
 
 
 def get_titles(webpage):
@@ -13,7 +12,6 @@ def get_titles(webpage):
     there are no guarantees that this will work on any other wikipedia page let alone web page.
 
     :param webpage: A link to the wikipedia webpage that has movies to scrape
-
     :return: all titles from the wikipedia table
     """
     page = requests.get(webpage)

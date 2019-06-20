@@ -10,11 +10,8 @@ def find_movie(movie_list, year):
     Function to return the first instance of a movie that matches the year from wikipedia
 
     :param movie_list: A list of movies from imdb
-
     :param year: The year the movie was released according to wikipedia
-
     :return: The first instance of a movie that was released the same year as wikipedia's year
-
     """
     for curr_movie in movie_list:
         try:
@@ -47,11 +44,8 @@ def get_movie_info(movie_title, year):
     ['rating']      - star rating out of 10
 
     :param movie_title: title of the movie to be searched on imdb
-
     :param year: year the movie was released in according to wikipedia
-
     :return: movie_title object
-
     """
     movies = ia.search_movie(movie_title)
     movie = find_movie(movies, year)
