@@ -39,16 +39,24 @@ with open('test.csv', encoding="utf8") as csvfile:
         title = row[0]
         year = row[1]
 
-        if title == "Ironiya Sudby, ili S Lyogkim Parom!" \
-                or title == "No Skin Off My Ass"\
-                or title == "Alice in Wonderland: An X-Rated Musical Fantasy"\
-                or title == "Behind the Green Door"\
-                or title == "Café Flesh"\
-                or title == "Deep Throat"\
-                or title == "Dekalog"\
-                or title == "The Firm"\
-                or title == "Kite"\
-                or title == "Thundercrack!":
+        # tv show
+        show_titles = [
+            "Ironiya Sudby, ili S Lyogkim Parom!",
+            "Dekalog",
+            "The Firm",
+            "Kite",
+        ]
+
+        # porn
+        porn_titles = [
+            "No Skin Off My Ass",
+            "Alice in Wonderland: An X-Rated Musical Fantasy",
+            "Behind the Green Door",
+            "Café Flesh",
+            "Deep Throat",
+            "Thundercrack!",
+        ]
+        if title in show_titles or title in porn_titles:
             print("passing this one: " + title)
             write_to_file('testers/lost_titles.txt', title)
             continue
