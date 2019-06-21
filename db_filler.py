@@ -29,7 +29,7 @@ def write_to_file(file_name, string):
     f.close()
 
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
     base_link = 'https://en.wikipedia.org/wiki/List_of_cult_films:_'
     titles = []
     for char in ascii_uppercase:
@@ -40,10 +40,10 @@ if "__name__" == "__main__":
         for title in movie_obj:
             if len(title['year']) == 4:
                 file = 'csv/almost_all_titles.csv'
-                movie_string = title['name'].strip() + "," + title['year'].strip() + "," + title['directors'].strip()
+                movie_string = title['name'].strip() + "||" + title['year'].strip() + "||" + title['directors'].strip()
                 write_to_file(file, movie_string)
                 print(movie_string)
             else:
                 file = 'csv/troublesome_titles.csv'
-                movie_string = title['name'].strip() + "," + title['year'].strip() + "," + title['directors'].strip()
+                movie_string = title['name'].strip() + "||" + title['year'].strip() + "||" + title['directors'].strip()
                 write_to_file(file, movie_string)
