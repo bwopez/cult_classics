@@ -1,3 +1,4 @@
+# TODO: probably split the 'everything_except_zatoichi.csv' file into alphabetized lists to prevent throttling
 import csv
 import imdb
 ia = imdb.IMDb()
@@ -32,14 +33,24 @@ def find_movie(movie_list, correct_title, correct_year):
             return return_movie
 
 
-with open('everything_except_zatoichi.csv', encoding="utf8") as csvfile:
+with open('test.csv', encoding="utf8") as csvfile:
     readcsv = csv.reader(csvfile, delimiter='|')
     for row in readcsv:
         title = row[0]
         year = row[1]
 
-        if title == "Ironiya Sudby, ili S Lyogkim Parom!" or title == "No Skin Off My Ass":
+        if title == "Ironiya Sudby, ili S Lyogkim Parom!" \
+                or title == "No Skin Off My Ass"\
+                or title == "Alice in Wonderland: An X-Rated Musical Fantasy"\
+                or title == "Behind the Green Door"\
+                or title == "Café Flesh"\
+                or title == "Deep Throat"\
+                or title == "Dekalog"\
+                or title == "The Firm"\
+                or title == "Kite"\
+                or title == "Thundercrack!":
             print("passing this one: " + title)
+            write_to_file('testers/lost_titles.txt', title)
             continue
         else:
             movies = ia.search_movie(title)
