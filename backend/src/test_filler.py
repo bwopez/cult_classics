@@ -8,7 +8,7 @@ django.setup()
 from films.models import Actor, Genre, Director, Movie
 
 if __name__ == "__main__":
-    json_file = open('../../json/movie_time.json')
+    json_file = open('../../json/movies_formatted.json')
     json_str = json_file.read()
     json_data = json.loads(json_str)
 
@@ -44,17 +44,24 @@ if __name__ == "__main__":
                                                runtime=movie_runtime, rating=movie_rating,
                                                cover_url=movie_cover_url, plot_outline=movie_plot_outline)[0]
         print("Successfully created movie: " + movie_name)
+
+        print("Adding Actors: ")
         for actor_name in movie_cast:
             actor = Actor.objects.get_or_create(name=actor_name)[0]
             my_movie.cast.add(actor)
-        print("Added actors.")
+            print("Added " + actor_name)
+        print("Added all actors to: " + movie_name)
 
+        print("Adding Directors: ")
         for director_name in movie_directors:
             director = Director.objects.get_or_create(name=director_name)[0]
             my_movie.directors.add(director)
-        print("Added directors")
+            print("Added " + director_name)
+        print("Added all directors to: " + movie_name)
 
+        print("Adding Genres: ")
         for genre_name in movie_genres:
             genre = Genre.objects.get_or_create(name=genre_name)[0]
             my_movie.genres.add(genre)
-        print("Added genres")
+            print("Added " + genre_name)
+        print("Added all genres")
