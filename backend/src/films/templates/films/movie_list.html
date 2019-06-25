@@ -1,41 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>hey</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block body_block %}
 
-<form method="GET" action="{% url 'movies:search' %}">
-    {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-    <input type="button" onclick="display_random()" value="Display Random" />
-</form>
+    <form method="GET" action="{% url 'movies:search' %}">
+        {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+        <input type="button" onclick="display_random()" value="Display Random" />
+    </form>
 
-<h2>Random Movie</h2>
-<p id="random_title"></p>
+    <h2>Random Movie</h2>
+    <p id="random_title"></p>
 
-{% for movie in filter.qs %}
-    <h2 class="titles">
-        {{ movie.pk }}
-        <a href="{% url 'movies:detail' pk=movie.pk %}">
-            {{ movie.name }} ({{ movie.year }})
-        </a>
-    </h2>
-{% endfor %}
+    {% for movie in filter.qs %}
+        <h2 class="titles">
+            {{ movie.pk }}
+            <a href="{% url 'movies:detail' pk=movie.pk %}">
+                {{ movie.name }} ({{ movie.year }})
+            </a>
+        </h2>
+    {% endfor %}
 
-<script>
-    function get_random(items) {
-    return items[Math.floor(Math.random()*items.length)];
-    }
+    <script>
+        function get_random(items) {
+        return items[Math.floor(Math.random()*items.length)];
+        }
 
-    function display_random() {
-        let titles_on_page = document.getElementsByClassName("titles");
-        let random_title = get_random(titles_on_page);
-        console.log(random_title)
-        document.getElementById("random_title").innerHTML = random_title.innerHTML;
-    }
-</script>
+        function display_random() {
+            let titles_on_page = document.getElementsByClassName("titles");
+            let random_title = get_random(titles_on_page);
+            console.log(random_title)
+            document.getElementById("random_title").innerHTML = random_title.innerHTML;
+        }
+    </script>
 
-</body>
-</html>
+{% endblock %}

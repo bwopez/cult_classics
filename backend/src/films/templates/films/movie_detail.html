@@ -1,20 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>sup</title>
-</head>
-<body>
-<h1>Movie: {{ movie_detail.name }}</h1>
-<h1>Year: {{ movie_detail.year }}</h1>
-<h1>Runtime: {{ movie_detail.runtime }}</h1>
-<h1>Rating: {{ movie_detail.rating }}</h1>
-<h1>Cover Url: <img src="{{ movie_detail.cover_url }}"></h1>
-<h1>Plot Outline: {{ movie_detail.plot_outline }}</h1>
+{% extends 'base.html' %}
+{% block body_block %}
 
-<h2>Actors: </h2>
-{% for person in movie_detail.cast.all %}
-    <p>{{ person.name }}</p>
-{% endfor %}
-</body>
-</html>
+    <h1>Movie: {{ movie_detail.name }}</h1>
+    <h1>Year: {{ movie_detail.year }}</h1>
+    <h1>Runtime: {{ movie_detail.runtime }}</h1>
+    <h1>Rating: {{ movie_detail.rating }}</h1>
+    <h1>Cover Url: <img src="{{ movie_detail.cover_url }}"></h1>
+    <h1>Plot Outline: </h1>
+    <p>{{ movie_detail.plot_outline }}</p>
+
+    <h2>Genres: </h2>
+    <ul>
+    {% for genre in movie_detail.genres.all %}
+        <li>{{ genre.name }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Actors: </h2>
+    <ul>
+    {% for person in movie_detail.cast.all %}
+        <li>{{ person.name }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Directors: </h2>
+    <ul>
+    {% for person in movie_detail.directors.all %}
+        <li>{{ person.name }}</li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
