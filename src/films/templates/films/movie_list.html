@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block body_block %}
-
+<div class="jumbotron">
     <form method="GET" action="{% url 'movies:search' %}">
         {{ filter.form.as_p }}
-        <button type="submit">Search</button>
-        <input type="button" onclick="display_random()" value="Display Random" />
+        <button class="btn btn-secondary" type="submit">Search</button>
+        <input class="btn btn-light" type="button" onclick="display_random()" value="Display Random" />
     </form>
 
-    <h2>Random Movie</h2>
+    <h2 id="random_movie_heading" style="display: none;">Random Movie</h2>
     <p id="random_title"></p>
+</div>
 
+    <h1>Movie List</h1>
+    <ul>
     {% for movie in filter.qs %}
-        <h2 class="titles">
-            {{ movie.pk }}
-            <a href="{% url 'movies:detail' pk=movie.pk %}">
-                {{ movie.name }} ({{ movie.year }})
-            </a>
-        </h2>
+        <li>
+            <h2 class="titles">
+                <a href="{% url 'movies:detail' pk=movie.pk %}">
+                    {{ movie.name }} ({{ movie.year }})
+                </a>
+            </h2>
+        </li>
     {% endfor %}
+    </ul>
 
     <script src="{% static "js/random_title.js" %}"></script>
 

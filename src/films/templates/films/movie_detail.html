@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block body_block %}
 
+    <a class="btn btn-success" href="{% url 'movies:search' %}">Back to All Movies</a>
+
     <h1>Movie: {{ movie_detail.name }}</h1>
     <h1>Year: {{ movie_detail.year }}</h1>
     <h1>Runtime: {{ movie_detail.runtime }}</h1>
