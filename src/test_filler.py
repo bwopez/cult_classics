@@ -8,7 +8,7 @@ django.setup()
 from films.models import Actor, Genre, Director, Movie
 
 if __name__ == "__main__":
-    json_file = open('../../json/movies_formatted.json')
+    json_file = open('../json/movies_formatted.json')
     json_str = json_file.read()
     json_data = json.loads(json_str)
 
