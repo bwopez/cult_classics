@@ -16,6 +16,8 @@ if __name__ == "__main__":
         movie_name = obj['title']
         movie_year = obj['year']
         movie_runtime = 0
+        movie_cover_url = "No Cover URL"
+        movie_plot_outline = "No recored plot outline."
         if 'runtimes' in obj.keys():
             movie_runtime = int(obj['runtimes'][0])
         if 'rating' in obj.keys():
