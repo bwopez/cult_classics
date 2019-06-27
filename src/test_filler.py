@@ -16,14 +16,14 @@ if __name__ == "__main__":
         movie_name = obj['title']
         movie_year = obj['year']
         movie_runtime = 0
-        movie_cover_url = "No Cover URL"
-        movie_plot_outline = "No recored plot outline."
         if 'runtimes' in obj.keys():
             movie_runtime = int(obj['runtimes'][0])
         if 'rating' in obj.keys():
             movie_rating = float(obj['rating'])
+        movie_cover_url = "Not found"
         if 'cover url' in obj.keys():
             movie_cover_url = obj['cover url']
+        movie_plot_outline = "Not found"
         if 'plot outline' in obj.keys():
             movie_plot_outline = obj['plot outline']
 
