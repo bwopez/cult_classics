@@ -13,18 +13,27 @@
     <p id="random_title"></p>
 </div>
 
-    <h1>Movie List</h1>
-    <ul>
+    <h1 class="text-center">Movie List</h1>
+    <div class="row">
     {% for movie in filter.qs %}
-        <li>
-            <h2 class="titles">
+        <div class="col-md-4">
+            <div class="img-thumbnail titles">
                 <a href="{% url 'movies:detail' pk=movie.pk %}">
-                    {{ movie.name }} ({{ movie.year }})
+                    <div class="text-center">
+                        <img src="{{ movie.cover_url }}" alt="{{ movie.name }} poster"/>
+                        <div class="caption">
+                            <p>{{ movie.name }} ({{ movie.year }})</p>
+                        </div>
+                    </div>
                 </a>
-            </h2>
-        </li>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">
+        {% endif %}
     {% endfor %}
-    </ul>
+    </div>
 
     <script src="{% static "js/random_title.js" %}"></script>
 
