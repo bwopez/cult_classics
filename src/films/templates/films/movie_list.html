@@ -2,37 +2,41 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<div class="jumbotron">
-    <form method="GET" action="{% url 'movies:search' %}">
-        {{ filter.form.as_p }}
-        <button class="btn btn-secondary" type="submit">Search</button>
-        <input class="btn btn-light" type="button" onclick="display_random()" value="Display Random" />
-    </form>
-
-    <h2 id="random_movie_heading" style="display: none;">Random Movie</h2>
-    <p id="random_title"></p>
-</div>
-
-    <h1 class="text-center">Movie List</h1>
     <div class="row">
-    {% for movie in filter.qs %}
-        <div class="col-md-4">
-            <div class="img-thumbnail titles">
-                <a href="{% url 'movies:detail' pk=movie.pk %}">
-                    <div class="text-center">
-                        <img src="{{ movie.cover_url }}" alt="{{ movie.name }} poster"/>
-                        <div class="caption">
-                            <p>{{ movie.name }} ({{ movie.year }})</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+        <div class="jumbotron col-md-6">
+            <form method="GET" action="{% url 'movies:search' %}">
+                {{ filter.form.as_p }}
+                <button class="btn btn-secondary" type="submit">Search</button>
+                <input class="btn btn-light" type="button" onclick="display_random()" value="Display Random" />
+            </form>
+
+            <h2 id="random_movie_heading" style="display: none;" class="text-center">Random Movie</h2>
+            <p id="random_title" class="text-center"></p>
         </div>
-        {% if forloop.counter|divisibleby:3 %}
-    </div>
-    <div class="row">
-        {% endif %}
-    {% endfor %}
+
+        <div class="col-md-6">
+        <h1 class="text-center">Movie List</h1>
+        <div class="row">
+        {% for movie in filter.qs %}
+            <div class="col-md-4">
+                <div class="img-thumbnail titles">
+                    <a href="{% url 'movies:detail' pk=movie.pk %}">
+                        <div class="text-center">
+                            <img src="{{ movie.cover_url }}" alt="{{ movie.name }} poster"/>
+                            <div class="caption">
+                                <p>{{ movie.name }} ({{ movie.year }})</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+            {% endif %}
+        {% endfor %}
+        </div>
+        </div>
     </div>
 
     <script src="{% static "js/random_title.js" %}"></script>
