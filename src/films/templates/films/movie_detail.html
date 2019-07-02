@@ -1,35 +1,73 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_extension %} | {{ movie_detail.name }}{% endblock %}
+{% block extra_style_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'films/css/film_master.css' %}">
+{% endblock %}
+
+
 {% block body_block %}
 
-    <a class="btn btn-success" href="{% url 'movies:search' %}">Back to All Movies</a>
+    <div class="surface_information">
+        <h2>{{ movie_detail.name }} ({{ movie_detail.year }})</h2>
+        <p>{{ movie_detail.runtime }} min -
+        {% for genre in movie_detail.genres.all %}
+            {% if forloop.counter == movie_detail.genres.count %}
+                {{ genre.name }}
+            {% else %}
+                {{ genre.name }} |
+            {% endif %}
+        {% endfor %}
+        </p>
+        <p>{{ movie_detail.rating }}/10 stars</p>
+    </div>
 
-    <h1>Movie: {{ movie_detail.name }}</h1>
-    <h1>Year: {{ movie_detail.year }}</h1>
-    <h1>Runtime: {{ movie_detail.runtime }}</h1>
-    <h1>Rating: {{ movie_detail.rating }}</h1>
-    <h1>Cover Url: <img src="{{ movie_detail.cover_url }}"></h1>
-    <h1>Plot Outline: </h1>
-    <p>{{ movie_detail.plot_outline }}</p>
+    <div class="row">
+        <div class="col-lg-3">
+            <img height="340px" src="{{ movie_detail.cover_url }}">
+        </div>
 
-    <h2>Genres: </h2>
-    <ul>
-    {% for genre in movie_detail.genres.all %}
-        <li>{{ genre.name }}</li>
-    {% endfor %}
-    </ul>
+        <div class="col-lg-9">
+            {% if movie_detail.plot_outline == 'Not found' %}
+                <p class="movie_deets">No movie plot found.</p>
+            {% else %}
+                <p class="movie_deets">{{ movie_detail.plot_outline }}</p>
+            {% endif %}
 
-    <h2>Actors: </h2>
-    <ul>
-    {% for person in movie_detail.cast.all %}
-        <li>{{ person.name }}</li>
-    {% endfor %}
-    </ul>
+            <p class="movie_deets"><span class="subheading">Directors: </span>
+            {% for person in movie_detail.directors.all %}
+                {% if forloop.counter == movie_detail.directors.count %}
+                    {{ person.name }}
+                {% else %}
+                    {{ person.name }},
+                {% endif %}
+            {% endfor %}
+            </p>
 
-    <h2>Directors: </h2>
-    <ul>
-    {% for person in movie_detail.directors.all %}
-        <li>{{ person.name }}</li>
-    {% endfor %}
-    </ul>
+            <p class="movie_deets"><span class="subheading">Writers: </span>
+            {% for person in movie_detail.writers.all %}
+                {% if forloop.counter == movie_detail.writers.count %}
+                    {{ person.name }}
+                {% else %}
+                    {{ person.name }},
+                {% endif %}
+            {% endfor %}
+            </p>
+
+            <p class="movie_deets"><span class="subheading">Actors: </span>
+            {% for person in movie_detail.cast.all %}
+                {% if forloop.counter == movie_detail.cast.count %}
+                    {{ person.name }}
+                {% else %}
+                    {{ person.name }},
+                {% endif %}
+            {% endfor %}
+            </p>
+            <a class="btn btn-success" href="{% url 'movies:search' %}">
+                <i class="fas fa-arrow-left"></i> Back to All Movies
+            </a>
+        </div>
+    </div>
 
 {% endblock %}

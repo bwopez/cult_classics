@@ -1,0 +1,20 @@
+/*color pallette */
+/*https://coolors.co/eaebed-006989-a3bac3-007090-01a7c2*/
+
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.surface_information {
+    /*this is where the title, runtime, genres, rating are styled*/
+    background-color: #a3bac3;
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+.movie_deets {
+    font-size: 14px;
+}
+.subheading {
+    font-weight: bold;
+}
