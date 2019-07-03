@@ -3,25 +3,31 @@
 
 {% block body_block %}
     <div class="row">
-        <div class="col-md-6">
-            <h1>Filters</h1>
-            <form method="GET" action="{% url 'movies:search' %}">
-                {{ filter.form.as_p }}
-                <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i> Search</button>
+        <div class="col-md-5">
+            <div class="surface_information">
+                <h1>Filters</h1>
+            </div>
+            <div class="top_left_space">
+                <form method="GET" action="{% url 'movies:search' %}">
+                    {{ filter.form.as_p }}
+                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i> Search</button>
 
-                {% if filter.qs %}
-                    <button type="button" class="btn btn-secondary" onclick="display_random()">
-                        <i class='fas fa-sync'></i> Display Random
-                    </button>
-                {% endif %}
-            </form>
+                    {% if filter.qs %}
+                        <button type="button" class="btn btn-secondary" onclick="display_random()">
+                            <i class='fas fa-sync'></i> Display Random
+                        </button>
+                    {% endif %}
+                </form>
 
-            <h2 id="random_movie_heading" style="display: none;" class="text-center">Random Movie</h2>
-            <p id="random_title" class="text-center"></p>
+                <h2 id="random_movie_heading" style="display: none;" class="text-center">Random Movie</h2>
+                <p id="random_title" class="text-center"></p>
+            </div>
         </div>
 
-        <div class="col-md-6">
-        <h1 class="text-center">Movie List</h1>
+        <div class="col-md-7">
+        <div class="surface_information">
+            <h1>Movie List</h1>
+        </div>
         <div class="row">
         {% for movie in filter.qs %}
             <div class="col-lg-4">

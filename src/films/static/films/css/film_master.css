@@ -1,6 +1,9 @@
 /*color pallette */
 /*https://coolors.co/eaebed-006989-a3bac3-007090-01a7c2*/
-
+.top_left_space {
+    padding-top: 20px;
+    padding-left: 10px;
+}
 body {
     padding-top: 60px;
     padding-bottom: 60px;
