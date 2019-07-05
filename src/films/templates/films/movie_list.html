@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 
 {% block body_block %}
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="surface_information">
                 <h1>Filters</h1>
             </div>
-            <div class="top_left_space">
+            <div class="form_padding">
                 <form method="GET" action="{% url 'movies:search' %}">
-                    {{ filter.form.as_p }}
+                    <p>Title:</p> {% render_field filter.form.name class="form-control" %}
+                    <p>Rating:</p> {% render_field filter.form.rating class="form-control" %}
+                    <div>
+                        <p>Genre: </p>
+                            <div class="row">
+                            {% for genre in filter.form.genres %}
+                                <div class="col-sm-4">
+                                    <div class="custom-control custom-checkbox">
+                                        {{ genre.tag }} {{ genre.choice_label }}
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:3 %}
+                            </div>
+                        <div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
                     <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i> Search</button>
 
                     {% if filter.qs %}
@@ -24,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-6">
         <div class="surface_information">
             <h1>Movie List</h1>
         </div>
